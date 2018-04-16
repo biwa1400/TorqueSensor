@@ -77,7 +77,7 @@
 #define LEDBUTTON_LED                   BSP_BOARD_LED_2                         /**< LED to be toggled with the help of the LED Button Service. */
 #define LEDBUTTON_BUTTON                BSP_BUTTON_0                            /**< Button that will trigger the notification event with the LED Button Service */
 
-#define DEVICE_NAME                     "dabin"                         /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME                     "Torque"                         /**< Name of device. Will be included in the advertising data. */
 
 #define APP_BLE_OBSERVER_PRIO           3                                       /**< Application's BLE observer priority. You shouldn't need to modify this value. */
 #define APP_BLE_CONN_CFG_TAG            1                                       /**< A tag identifying the SoftDevice BLE configuration. */
@@ -606,7 +606,7 @@ void sensorInit()
     }
 }
 
-#define SENSOR_I2C_ADDR                   0x29    //!< Simulated EEPROM TWI slave address.
+#define SENSOR_I2C_ADDR                   0x29    
 void sensorWrite(uint8_t* buf,uint8_t length)
 {
 	ret_code_t ret;
@@ -654,18 +654,28 @@ int main(void)
     advertising_init();
     conn_params_init();
 	
-		//sensorInit();
+		sensorInit();
 		sd_ble_gap_tx_power_set(0);
     // Start execution.
 
     advertising_start();
 
     // Enter main loop.
-	
+		uint8_t writeBuf[1]={0xaa};
+		uint8_t readBuf[7];
 		while(1)
 		{
 			if (NRF_LOG_PROCESS() == false)
       {
+
+				sensorWrite(writeBuf,1);
+				nrf_delay_ms(500);
+				sensorRead(readBuf,7);
+				for (int i=0;i<7;i++)
+				{
+					NRF_LOG_INFO("Value %d: %.2x",i,readBuf[i]);
+				}
+				changeValue2(readBuf,7);
       }
 		}
 }
