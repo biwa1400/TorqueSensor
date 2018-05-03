@@ -12,7 +12,7 @@
 	VGT             VCC
 	SWDIO           SWDIO
 	SWDCLK          SWDCLK
-	SWO             P18
-	RESET           P21
-	GNDDECT         GND
+	SWO             P18 (needn't)
+	RESET           P21 (needn't)
+	GNDDECT         GND 
 	GND             GND
