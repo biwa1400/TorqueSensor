@@ -669,7 +669,7 @@ int main(void)
       {
 
 				sensorWrite(writeBuf,1);
-				nrf_delay_ms(500);
+				nrf_delay_ms(50);
 				sensorRead(readBuf,7);
 				for (int i=0;i<7;i++)
 				{

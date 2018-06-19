@@ -1,0 +1,522 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD18\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">2018/6/5</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">9:10:54</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc" class="file"><acronym title="C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc">C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">62</td></tr>
+</table>
+</td>
+</table><a name="IDTYOCN1GPUVQFJSNW0KGI20WGSOP2ZIRPVHAXNOIPTBPT2QSH1CWG"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDHJG2YYZ5QTPKLGH3RCPCI43CEBW43LYDFC5G3MDKBSMRMDR5U2CL">Clearance Constraint (Gap=0.15mm) (All),(All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQDDTHQFQGOIECJOAJDWFDB1DKMJ2GCYVOXZUP5LKAQU2TRDIHIOE">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDBS2YT1O1DNG4LPMX2U33AKD25JC4GGJ2QMYBYIDTV45A4QIJWSVG">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDJZLA5MTGVIC5DXVVEOSW1JK2TLTZ1T1DHDVV0IKMYZ1L4XRZQ5AL">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDLMCDUZFZXISFPADIPQVFR03DKF0KXUGU1DACP3HCXECELTRM1TOG">Width Constraint (Min=0.15mm) (Max=0.15mm) (Preferred=0.15mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDSAF42LY0JJH1K0JC2BEE0P25BMW2LJEYT5WQR3GRMRYOWZAG4BDB">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDYOWSUFZFWCMQCC0PJ3DIMTNCZNDBQUMUOC450FNKJUNFLZJ5JBKD">Hole Size Constraint (Min=0.35mm) (Max=2.54mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQHIIZHIX25V0LORVVCFMUUFDRK03UNWHNMH1A5OP04HMVGQUT40M">Hole To Hole Clearance (Gap=0.15mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDVMFMZXXAIHKT405555Q51UFBFOQEAO51YCMTSJZ31YYMSN0SC3">Minimum Solder Mask Sliver (Gap=0.15mm) (All),(All)</a></td>
+<td class="column2">40</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQQWRLTBX1V3ALXT4RBTB4MEIOYAZZ2FZENMLMLHPS40G1T21QOC">Silk To Solder Mask (Clearance=0.15mm) (IsPad),(All)</a></td>
+<td class="column2">18</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID2IWVK3MUGM1DC53FKDWPZPIKTJTEBEZM23BQT5HF2UBYVGRVFXXG">Silk to Silk (Clearance=0.15mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDKQXT00HMALUUHR5J34NRJPHZWDKLALKVWOP0BTJTMR4QVQ0EL3BM">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQKT3TQDP4OD0KB1SGSQNJXGXKI2TJ3EOQVQV4XP2CDX5R2PRG14E">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">62</td>
+</tr>
+</table><br><a name="IDHJG2YYZ5QTPKLGH3RCPCI43CEBW43LYDFC5G3MDKBSMRMDR5U2CL"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=0.15mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4712.345mil|Location2.X=4717.282mil|Location1.Y=3483.343mil|Location2.Y=3488.28mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4712.345mil|Location2.X=4717.282mil|Location1.Y=3483.343mil|Location2.Y=3488.28mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-D(93.447mm,62.357mm) on Multi-Layer And Region (0 hole(s)) Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4712.643mil|Location2.X=4717.58mil|Location1.Y=3707.994mil|Location2.Y=3712.931mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4712.643mil|Location2.X=4717.58mil|Location1.Y=3707.994mil|Location2.Y=3712.931mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-E(93.447mm,68.072mm) on Multi-Layer And Region (0 hole(s)) Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4440.114mil|Location2.X=4445.051mil|Location1.Y=3677.532mil|Location2.Y=3682.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4440.114mil|Location2.X=4445.051mil|Location1.Y=3677.532mil|Location2.Y=3682.468mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-F(88.367mm,68.072mm) on Multi-Layer And Region (0 hole(s)) Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4440.114mil|Location2.X=4445.051mil|Location1.Y=3452.532mil|Location2.Y=3457.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4440.114mil|Location2.X=4445.051mil|Location1.Y=3452.532mil|Location2.Y=3457.468mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-G(88.367mm,62.357mm) on Multi-Layer And Region (0 hole(s)) Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDVMFMZXXAIHKT405555Q51UFBFOQEAO51YCMTSJZ31YYMSN0SC3"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=0.15mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3829.185mil|Location2.X=3836.341mil|Location1.Y=4270.344mil|Location2.Y=4277.499mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3829.185mil|Location2.X=3836.341mil|Location1.Y=4270.344mil|Location2.Y=4277.499mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.15mm) Between Pad P1-(71.377mm,83.208mm) on Multi-Layer And Pad P1-5(72.302mm,83.258mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3959.107mil|Location2.X=3966.262mil|Location1.Y=4270.344mil|Location2.Y=4277.499mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3959.107mil|Location2.X=3966.262mil|Location1.Y=4270.344mil|Location2.Y=4277.499mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.15mm) Between Pad P1-(75.827mm,83.208mm) on Multi-Layer And Pad P1-1(74.902mm,83.258mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3932.532mil|Location2.X=3939.688mil|Location1.Y=4243.706mil|Location2.Y=4250.861mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3932.532mil|Location2.X=3939.688mil|Location1.Y=4243.706mil|Location2.Y=4250.861mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad P1-1(74.902mm,83.258mm) on Top Layer And Pad P1-2(74.252mm,83.258mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3906.941mil|Location2.X=3914.097mil|Location1.Y=4243.706mil|Location2.Y=4250.861mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3906.941mil|Location2.X=3914.097mil|Location1.Y=4243.706mil|Location2.Y=4250.861mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad P1-2(74.252mm,83.258mm) on Top Layer And Pad P1-3(73.602mm,83.258mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3881.351mil|Location2.X=3888.507mil|Location1.Y=4243.706mil|Location2.Y=4250.861mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3881.351mil|Location2.X=3888.507mil|Location1.Y=4243.706mil|Location2.Y=4250.861mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad P1-3(73.602mm,83.258mm) on Top Layer And Pad P1-4(72.952mm,83.258mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3855.76mil|Location2.X=3862.916mil|Location1.Y=4243.706mil|Location2.Y=4250.861mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3855.76mil|Location2.X=3862.916mil|Location1.Y=4243.706mil|Location2.Y=4250.861mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad P1-4(72.952mm,83.258mm) on Top Layer And Pad P1-5(72.302mm,83.258mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3549.744mil|Location2.Y=3556.9mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3549.744mil|Location2.Y=3556.9mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-10(79.925mm,64.731mm) on Top Layer And Pad U3-11(80.575mm,65.156mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3533.012mil|Location2.Y=3540.168mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3533.012mil|Location2.Y=3540.168mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-10(79.925mm,64.731mm) on Top Layer And Pad U3-9(80.575mm,64.306mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3566.478mil|Location2.Y=3573.634mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3566.478mil|Location2.Y=3573.634mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-11(80.575mm,65.156mm) on Top Layer And Pad U3-12(79.925mm,65.581mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3583.21mil|Location2.Y=3590.366mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3583.21mil|Location2.Y=3590.366mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-12(79.925mm,65.581mm) on Top Layer And Pad U3-13(80.575mm,66.006mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3599.942mil|Location2.Y=3607.098mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3599.942mil|Location2.Y=3607.098mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-13(80.575mm,66.006mm) on Top Layer And Pad U3-14(79.925mm,66.431mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.888mil|Location1.Y=3623.829mil|Location2.Y=3631.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.888mil|Location1.Y=3623.829mil|Location2.Y=3631.767mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.066mm &lt; 0.15mm) Between Pad U3-14(79.925mm,66.431mm) on Top Layer And Pad U3-15(80.575mm,67.081mm) on Top Layer [Top Solder] Mask Sliver [0.066mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4131.21mil|Location2.X=4138.366mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4131.21mil|Location2.X=4138.366mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-14(79.925mm,66.431mm) on Top Layer And Pad U3-16(79.5mm,67.081mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4114.478mil|Location2.X=4121.634mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4114.478mil|Location2.X=4121.634mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-16(79.5mm,67.081mm) on Top Layer And Pad U3-17(79.075mm,66.431mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4097.744mil|Location2.X=4104.9mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4097.744mil|Location2.X=4104.9mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-17(79.075mm,66.431mm) on Top Layer And Pad U3-18(78.65mm,67.081mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4081.012mil|Location2.X=4088.168mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4081.012mil|Location2.X=4088.168mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-18(78.65mm,67.081mm) on Top Layer And Pad U3-19(78.225mm,66.431mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4064.28mil|Location2.X=4071.436mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4064.28mil|Location2.X=4071.436mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-19(78.225mm,66.431mm) on Top Layer And Pad U3-20(77.8mm,67.081mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.548mil|Location2.X=4054.704mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.548mil|Location2.X=4054.704mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-20(77.8mm,67.081mm) on Top Layer And Pad U3-21(77.375mm,66.431mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4030.816mil|Location2.X=4037.972mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4030.816mil|Location2.X=4037.972mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-21(77.375mm,66.431mm) on Top Layer And Pad U3-22(76.95mm,67.081mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4014.084mil|Location2.X=4021.24mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4014.084mil|Location2.X=4021.24mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-22(76.95mm,67.081mm) on Top Layer And Pad U3-23(76.525mm,66.431mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3997.352mil|Location2.X=4004.508mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3997.352mil|Location2.X=4004.508mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-23(76.525mm,66.431mm) on Top Layer And Pad U3-24(76.1mm,67.081mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3980.618mil|Location2.X=3987.774mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3980.618mil|Location2.X=3987.774mil|Location1.Y=3624.611mil|Location2.Y=3631.767mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-24(76.1mm,67.081mm) on Top Layer And Pad U3-25(75.675mm,66.431mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.903mil|Location1.Y=3624.611mil|Location2.Y=3632.62mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.903mil|Location1.Y=3624.611mil|Location2.Y=3632.62mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.066mm &lt; 0.15mm) Between Pad U3-25(75.675mm,66.431mm) on Top Layer And Pad U3-26(75.025mm,67.081mm) on Top Layer [Top Solder] Mask Sliver [0.066mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3599.942mil|Location2.Y=3607.098mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3599.942mil|Location2.Y=3607.098mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-25(75.675mm,66.431mm) on Top Layer And Pad U3-27(75.025mm,66.006mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3583.21mil|Location2.Y=3590.366mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3583.21mil|Location2.Y=3590.366mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-27(75.025mm,66.006mm) on Top Layer And Pad U3-28(75.675mm,65.581mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3566.478mil|Location2.Y=3573.634mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3566.478mil|Location2.Y=3573.634mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-28(75.675mm,65.581mm) on Top Layer And Pad U3-29(75.025mm,65.156mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3549.744mil|Location2.Y=3556.9mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3549.744mil|Location2.Y=3556.9mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-29(75.025mm,65.156mm) on Top Layer And Pad U3-30(75.675mm,64.731mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3432.618mil|Location2.Y=3439.774mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3432.618mil|Location2.Y=3439.774mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-3(80.575mm,61.756mm) on Top Layer And Pad U3-4(79.925mm,62.181mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3533.012mil|Location2.Y=3540.168mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3533.012mil|Location2.Y=3540.168mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-30(75.675mm,64.731mm) on Top Layer And Pad U3-31(75.025mm,64.306mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3516.28mil|Location2.Y=3523.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3516.28mil|Location2.Y=3523.436mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-31(75.025mm,64.306mm) on Top Layer And Pad U3-32(75.675mm,63.881mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3499.548mil|Location2.Y=3506.704mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3499.548mil|Location2.Y=3506.704mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-32(75.675mm,63.881mm) on Top Layer And Pad U3-33(75.025mm,63.456mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3482.816mil|Location2.Y=3489.972mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3482.816mil|Location2.Y=3489.972mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-33(75.025mm,63.456mm) on Top Layer And Pad U3-34(75.675mm,63.031mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3466.084mil|Location2.Y=3473.24mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3466.084mil|Location2.Y=3473.24mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-34(75.675mm,63.031mm) on Top Layer And Pad U3-35(75.025mm,62.606mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3449.352mil|Location2.Y=3456.508mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3449.352mil|Location2.Y=3456.508mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-35(75.025mm,62.606mm) on Top Layer And Pad U3-36(75.675mm,62.181mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3432.618mil|Location2.Y=3439.774mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3962.965mil|Location2.X=3970.121mil|Location1.Y=3432.618mil|Location2.Y=3439.774mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-36(75.675mm,62.181mm) on Top Layer And Pad U3-37(75.025mm,61.756mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3449.352mil|Location2.Y=3456.508mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3449.352mil|Location2.Y=3456.508mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-4(79.925mm,62.181mm) on Top Layer And Pad U3-5(80.575mm,62.606mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3466.084mil|Location2.Y=3473.24mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3466.084mil|Location2.Y=3473.24mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-5(80.575mm,62.606mm) on Top Layer And Pad U3-6(79.925mm,63.031mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3482.816mil|Location2.Y=3489.972mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3482.816mil|Location2.Y=3489.972mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-6(79.925mm,63.031mm) on Top Layer And Pad U3-7(80.575mm,63.456mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3499.548mil|Location2.Y=3506.704mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3499.548mil|Location2.Y=3506.704mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-7(80.575mm,63.456mm) on Top Layer And Pad U3-8(79.925mm,63.881mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3516.28mil|Location2.Y=3523.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.879mil|Location2.X=4163.035mil|Location1.Y=3516.28mil|Location2.Y=3523.436mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.15mm) Between Pad U3-8(79.925mm,63.881mm) on Top Layer And Pad U3-9(80.575mm,64.306mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDQQWRLTBX1V3ALXT4RBTB4MEIOYAZZ2FZENMLMLHPS40G1T21QOC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=0.15mm) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4507.233mil|Location2.X=4512.169mil|Location1.Y=3488.349mil|Location2.Y=3493.286mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4507.233mil|Location2.X=4512.169mil|Location1.Y=3488.349mil|Location2.Y=3493.286mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Arc (89.637mm,63.627mm) on Top Overlay And Pad P3-G(88.367mm,62.357mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4645.831mil|Location2.X=4650.767mil|Location1.Y=3488.349mil|Location2.Y=3493.286mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4645.831mil|Location2.X=4650.767mil|Location1.Y=3488.349mil|Location2.Y=3493.286mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Arc (92.177mm,63.627mm) on Top Overlay And Pad P3-D(93.447mm,62.357mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4671.631mil|Location2.X=4676.568mil|Location1.Y=3403.529mil|Location2.Y=3408.466mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4671.631mil|Location2.X=4676.568mil|Location1.Y=3403.529mil|Location2.Y=3408.466mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-D(93.447mm,62.357mm) on Multi-Layer And Track (88.621mm,61.087mm)(93.32mm,61.087mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4637.999mil|Location2.X=4642.936mil|Location1.Y=3478.22mil|Location2.Y=3483.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4637.999mil|Location2.X=4642.936mil|Location1.Y=3478.22mil|Location2.Y=3483.157mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-D(93.447mm,62.357mm) on Multi-Layer And Track (91.415mm,61.341mm)(92.685mm,63.246mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4652.135mil|Location2.X=4661.678mil|Location1.Y=3497.998mil|Location2.Y=3505.8mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4652.135mil|Location2.X=4661.678mil|Location1.Y=3497.998mil|Location2.Y=3505.8mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.042mm &lt; 0.15mm) Between Pad P3-D(93.447mm,62.357mm) on Multi-Layer And Track (92.812mm,63.627mm)(92.812mm,70.612mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.042mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4666.801mil|Location2.X=4671.738mil|Location1.Y=3403.878mil|Location2.Y=3408.815mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4666.801mil|Location2.X=4671.738mil|Location1.Y=3403.878mil|Location2.Y=3408.815mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-D(93.447mm,62.357mm) on Multi-Layer And Track (93.193mm,59.944mm)(93.193mm,61.087mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4676.532mil|Location2.X=4681.468mil|Location1.Y=3403.409mil|Location2.Y=3408.346mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4676.532mil|Location2.X=4681.468mil|Location1.Y=3403.409mil|Location2.Y=3408.346mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-D(93.447mm,62.357mm) on Multi-Layer And Track (93.193mm,61.087mm)(94.717mm,61.087mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4725.654mil|Location2.X=4730.591mil|Location1.Y=3452.532mil|Location2.Y=3457.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4725.654mil|Location2.X=4730.591mil|Location1.Y=3452.532mil|Location2.Y=3457.468mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-D(93.447mm,62.357mm) on Multi-Layer And Track (94.717mm,61.087mm)(94.717mm,71.247mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4639.909mil|Location2.X=4644.846mil|Location1.Y=3677.532mil|Location2.Y=3682.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4639.909mil|Location2.X=4644.846mil|Location1.Y=3677.532mil|Location2.Y=3682.468mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-E(93.447mm,68.072mm) on Multi-Layer And Track (92.812mm,63.627mm)(92.812mm,70.612mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4725.654mil|Location2.X=4730.591mil|Location1.Y=3677.532mil|Location2.Y=3682.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4725.654mil|Location2.X=4730.591mil|Location1.Y=3677.532mil|Location2.Y=3682.468mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-E(93.447mm,68.072mm) on Multi-Layer And Track (94.717mm,61.087mm)(94.717mm,71.247mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4427.409mil|Location2.X=4432.346mil|Location1.Y=3677.532mil|Location2.Y=3682.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4427.409mil|Location2.X=4432.346mil|Location1.Y=3677.532mil|Location2.Y=3682.468mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-F(88.367mm,68.072mm) on Multi-Layer And Track (87.097mm,61.087mm)(87.097mm,71.247mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4513.154mil|Location2.X=4518.091mil|Location1.Y=3677.532mil|Location2.Y=3682.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4513.154mil|Location2.X=4518.091mil|Location1.Y=3677.532mil|Location2.Y=3682.468mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-F(88.367mm,68.072mm) on Multi-Layer And Track (89.002mm,63.627mm)(89.002mm,70.612mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4427.409mil|Location2.X=4432.346mil|Location1.Y=3452.532mil|Location2.Y=3457.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4427.409mil|Location2.X=4432.346mil|Location1.Y=3452.532mil|Location2.Y=3457.468mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-G(88.367mm,62.357mm) on Multi-Layer And Track (87.097mm,61.087mm)(87.097mm,71.247mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4476.532mil|Location2.X=4481.468mil|Location1.Y=3403.409mil|Location2.Y=3408.346mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4476.532mil|Location2.X=4481.468mil|Location1.Y=3403.409mil|Location2.Y=3408.346mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-G(88.367mm,62.357mm) on Multi-Layer And Track (87.097mm,61.087mm)(88.621mm,61.087mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4486.262mil|Location2.X=4491.199mil|Location1.Y=3403.878mil|Location2.Y=3408.815mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4486.262mil|Location2.X=4491.199mil|Location1.Y=3403.878mil|Location2.Y=3408.815mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-G(88.367mm,62.357mm) on Multi-Layer And Track (88.621mm,59.944mm)(88.621mm,61.087mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4486.262mil|Location2.X=4491.199mil|Location1.Y=3403.878mil|Location2.Y=3408.815mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4486.262mil|Location2.X=4491.199mil|Location1.Y=3403.878mil|Location2.Y=3408.815mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-G(88.367mm,62.357mm) on Multi-Layer And Track (88.621mm,61.087mm)(93.32mm,61.087mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4498.71mil|Location2.X=4508.298mil|Location1.Y=3497.441mil|Location2.Y=3505.153mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4498.71mil|Location2.X=4508.298mil|Location1.Y=3497.441mil|Location2.Y=3505.153mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.042mm &lt; 0.15mm) Between Pad P3-G(88.367mm,62.357mm) on Multi-Layer And Track (89.002mm,63.627mm)(89.002mm,70.612mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.042mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4515.064mil|Location2.X=4520.001mil|Location1.Y=3478.22mil|Location2.Y=3483.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\work\project\bluetooth\PCB\FINAL\BLE_TORQUE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4515.064mil|Location2.X=4520.001mil|Location1.Y=3478.22mil|Location2.Y=3483.157mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.15mm) Between Pad P3-G(88.367mm,62.357mm) on Multi-Layer And Track (89.129mm,63.246mm)(90.399mm,61.341mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

@@ -1,0 +1,13 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [BLE_TORQUE.PrjPCB]
+   Generated File[BLE_TORQUE-RoundHoles.TXT]
+   Generated File[BLE_TORQUE-SlotHoles.TXT]
+   Generated File[BLE_TORQUE.LDP]
+   Generated File[BLE_TORQUE.DRR]
+
+
+Files Generated   : 4
+Documents Printed : 0
+
+Finished Output Generation At 9:37:33 On 2018/6/5

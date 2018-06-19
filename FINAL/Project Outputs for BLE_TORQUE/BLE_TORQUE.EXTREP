@@ -1,0 +1,24 @@
+------------------------------------------------------------------------------------------
+Gerber File Extension Report For: BLE_TORQUE.GBR   2018/6/5  9:36:56
+------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------
+Layer Extension     Layer Description                      
+------------------------------------------------------------------------------------------
+.GTL                Top Layer                               
+.GTP                Top Paste                               
+.GTO                Top Overlay                             
+.GBL                Bottom Layer                            
+.GTS                Top Solder                              
+.GBS                Bottom Solder                           
+.GBO                Bottom Overlay                          
+.GBP                Bottom Paste                            
+.GM1                Mechanical 1                            
+.GKO                Keep-Out Layer                          
+.GM11               Mechanical 11                           
+.GM13               Mechanical 13                           
+.GM15               Mechanical 15                           
+.GML                Multi-Layer                             
+.1                  Dielectric 1                            
+------------------------------------------------------------------------------------------
