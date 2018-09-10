@@ -1,47 +1,3 @@
-/**
- * Copyright (c) 2015 - 2017, Nordic Semiconductor ASA
- * 
- * All rights reserved.
- * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
- * 
- * 2. Redistributions in binary form, except as embedded into a Nordic
- *    Semiconductor ASA integrated circuit in a product or a software update for
- *    such product, must reproduce the above copyright notice, this list of
- *    conditions and the following disclaimer in the documentation and/or other
- *    materials provided with the distribution.
- * 
- * 3. Neither the name of Nordic Semiconductor ASA nor the names of its
- *    contributors may be used to endorse or promote products derived from this
- *    software without specific prior written permission.
- * 
- * 4. This software, with or without modification, must only be used with a
- *    Nordic Semiconductor ASA integrated circuit.
- * 
- * 5. Any software provided in binary form under this license must not be reverse
- *    engineered, decompiled, modified and/or disassembled.
- * 
- * THIS SOFTWARE IS PROVIDED BY NORDIC SEMICONDUCTOR ASA "AS IS" AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY, NONINFRINGEMENT, AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL NORDIC SEMICONDUCTOR ASA OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
- * GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
- * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
- */
-/**
- * @brief Blinky Sample Application main file.
- *
- * This file contains the source code for a sample server application using the LED Button service.
- */
 
 #include <stdint.h>
 #include <string.h>
@@ -62,12 +18,9 @@
 #include "ble_lbs.h"
 #include "nrf_ble_gatt.h"
 
-#include "nrf_drv_twi.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
-#include "nrf_delay.h"
-
 
 
 #define APP_FEATURE_NOT_SUPPORTED       BLE_GATT_STATUS_ATTERR_APP_BEGIN + 2    /**< Reply when unsupported features are requested. */
@@ -77,7 +30,7 @@
 #define LEDBUTTON_LED                   BSP_BOARD_LED_2                         /**< LED to be toggled with the help of the LED Button Service. */
 #define LEDBUTTON_BUTTON                BSP_BUTTON_0                            /**< Button that will trigger the notification event with the LED Button Service */
 
-#define DEVICE_NAME                     "Torque_1"                         /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME                     "Nordic_Blinky"                         /**< Name of device. Will be included in the advertising data. */
 
 #define APP_BLE_OBSERVER_PRIO           3                                       /**< Application's BLE observer priority. You shouldn't need to modify this value. */
 #define APP_BLE_CONN_CFG_TAG            1                                       /**< A tag identifying the SoftDevice BLE configuration. */
@@ -119,16 +72,6 @@ static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID;                        
 void assert_nrf_callback(uint16_t line_num, const uint8_t * p_file_name)
 {
     app_error_handler(DEAD_BEEF, line_num, p_file_name);
-}
-
-
-/**@brief Function for the LEDs initialization.
- *
- * @details Initializes all LEDs used by the application.
- */
-static void leds_init(void)
-{
-    bsp_board_leds_init();
 }
 
 
@@ -188,13 +131,10 @@ static void gatt_init(void)
  * @details Encodes the required advertising data and passes it to the stack.
  *          Also builds a structure to be passed to the stack when starting advertising.
  */
-
-static ble_advdata_t advdata;
-
 static void advertising_init(void)
 {
     ret_code_t    err_code;
-    //ble_advdata_t advdata;
+    ble_advdata_t advdata;
     ble_advdata_t srdata;
 
     ble_uuid_t adv_uuids[] = {{LBS_UUID_SERVICE, m_lbs.uuid_type}};
@@ -206,58 +146,9 @@ static void advertising_init(void)
     advdata.include_appearance = true;
     advdata.flags              = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
 
-		
-		
-		uint8_array_t manuf;
-		uint8_t manufBuf[4]={0x01,0x02,0x03,0x04};
-		manuf.size=4;
-		manuf.p_data = manufBuf;
-		
-		ble_advdata_manuf_data_t manuf_data;
-		manuf_data.company_identifier=0x8821;
-		manuf_data.data=manuf;
-		advdata.p_manuf_specific_data = &manuf_data;
 
     memset(&srdata, 0, sizeof(srdata));
-		srdata.uuids_complete.uuid_cnt = sizeof(adv_uuids) / sizeof(adv_uuids[0]);
-    srdata.uuids_complete.p_uuids  = adv_uuids;
-
-    err_code = ble_advdata_set(&advdata, &srdata);
-    APP_ERROR_CHECK(err_code);
-}
-
-static void changeValue(uint16_t value)
-{
-    ret_code_t    err_code;
-    ble_advdata_t srdata;
-
-    ble_uuid_t adv_uuids[] = {{value, m_lbs.uuid_type}};
-
-    memset(&srdata, 0, sizeof(srdata));
-		srdata.uuids_complete.uuid_cnt = sizeof(adv_uuids) / sizeof(adv_uuids[0]);
-    srdata.uuids_complete.p_uuids  = adv_uuids;
-
-    err_code = ble_advdata_set(&advdata, &srdata);
-    APP_ERROR_CHECK(err_code);
-}
-
-static void changeValue2(uint8_t* buf, uint8_t size)
-{
-    ret_code_t    err_code;
-    ble_advdata_t srdata;
-		uint8_t uuidSize = size/2+(size%2);
-
-    ble_uuid_t adv_uuids[uuidSize];
-	
-		for(int i = 0;i<uuidSize;i++)
-		{
-			uint16_t value = buf[i*2]+(buf[i*2+1]<<8);
-			ble_uuid_t st={value,1};		
-			adv_uuids[i] =st;
-		}
-
-    memset(&srdata, 0, sizeof(srdata));
-		srdata.uuids_complete.uuid_cnt = sizeof(adv_uuids) / sizeof(adv_uuids[0]);
+    srdata.uuids_complete.uuid_cnt = sizeof(adv_uuids) / sizeof(adv_uuids[0]);
     srdata.uuids_complete.p_uuids  = adv_uuids;
 
     err_code = ble_advdata_set(&advdata, &srdata);
@@ -585,99 +476,34 @@ static void power_manage(void)
 }
 
 
-static const nrf_drv_twi_t m_twi_master = NRF_DRV_TWI_INSTANCE(0);
-void sensorInit()
-{
-    ret_code_t ret;
-    const nrf_drv_twi_config_t config =
-    {
-       .scl                = ARDUINO_SCL_PIN,
-       .sda                = ARDUINO_SDA_PIN,
-       .frequency          = NRF_TWI_FREQ_100K,
-       .interrupt_priority = APP_IRQ_PRIORITY_HIGH,
-       .clear_bus_init     = false
-    };
-
-    ret = nrf_drv_twi_init(&m_twi_master, &config, NULL, NULL);
-
-    if (NRF_SUCCESS == ret)
-    {
-        nrf_drv_twi_enable(&m_twi_master);
-    }
-}
-
-#define SENSOR_I2C_ADDR                   0x29    
-void sensorWrite(uint8_t* buf,uint8_t length)
-{
-	ret_code_t ret;
-	do
-	{
-		 ret = nrf_drv_twi_tx(&m_twi_master, SENSOR_I2C_ADDR, buf,length, false);
-		 if (NRF_SUCCESS != ret)
-		 {
-				 break;
-		 }
-		 //ret = nrf_drv_twi_rx(&m_twi_master, EEPROM_SIM_ADDR, pdata, size);
-	}while (0);
-}
-
-void sensorRead(uint8_t* buf,uint8_t length)
-{
-	ret_code_t ret;
-	do
-	{
-		 ret = nrf_drv_twi_rx(&m_twi_master, SENSOR_I2C_ADDR, buf,length);
-		 if (NRF_SUCCESS != ret)
-		 {
-				 break;
-		 }
-	}while (0);
-}
-
-
-
-
 /**@brief Function for application main entry.
  */
 int main(void)
 {
     // Initialize.
-    leds_init();
+    bsp_board_leds_init();
     timers_init();
     log_init();
     buttons_init();
     ble_stack_init();
-			    NRF_LOG_INFO("Started.");
     gap_params_init();
     gatt_init();
     services_init();
     advertising_init();
     conn_params_init();
-	
-		sensorInit();
-		sd_ble_gap_tx_power_set(4);
-    // Start execution.
 
+    // Start execution.
+    NRF_LOG_INFO("Blinky example started.");
     advertising_start();
 
     // Enter main loop.
-		uint8_t writeBuf[1]={0xaa};
-		uint8_t readBuf[7];
-		while(1)
-		{
-			if (NRF_LOG_PROCESS() == false)
-      {
-
-				sensorWrite(writeBuf,1);
-				nrf_delay_ms(5);
-				sensorRead(readBuf,7);
-				for (int i=0;i<7;i++)
-				{
-					NRF_LOG_INFO("Value %d: %.2x",i,readBuf[i]);
-				}
-				changeValue2(readBuf,7);
-      }
-		}
+    for (;;)
+    {
+        if (NRF_LOG_PROCESS() == false)
+        {
+            power_manage();
+        }
+    }
 }
 
 

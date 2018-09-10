@@ -77,7 +77,7 @@
 #define LEDBUTTON_LED                   BSP_BOARD_LED_2                         /**< LED to be toggled with the help of the LED Button Service. */
 #define LEDBUTTON_BUTTON                BSP_BUTTON_0                            /**< Button that will trigger the notification event with the LED Button Service */
 
-#define DEVICE_NAME                     "Torque_1"                         /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME                     "Torque"                         /**< Name of device. Will be included in the advertising data. */
 
 #define APP_BLE_OBSERVER_PRIO           3                                       /**< Application's BLE observer priority. You shouldn't need to modify this value. */
 #define APP_BLE_CONN_CFG_TAG            1                                       /**< A tag identifying the SoftDevice BLE configuration. */
@@ -655,7 +655,7 @@ int main(void)
     conn_params_init();
 	
 		sensorInit();
-		sd_ble_gap_tx_power_set(4);
+		sd_ble_gap_tx_power_set(0);
     // Start execution.
 
     advertising_start();
@@ -669,7 +669,7 @@ int main(void)
       {
 
 				sensorWrite(writeBuf,1);
-				nrf_delay_ms(5);
+				nrf_delay_ms(50);
 				sensorRead(readBuf,7);
 				for (int i=0;i<7;i++)
 				{
@@ -678,6 +678,7 @@ int main(void)
 				changeValue2(readBuf,7);
       }
 		}
+		
 }
 
 
